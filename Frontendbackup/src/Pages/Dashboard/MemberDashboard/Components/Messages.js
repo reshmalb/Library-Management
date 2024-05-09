@@ -13,7 +13,7 @@ const Messages = () => {
         setRecipient(e.target.value);
     };
 
-    const handleSend = () => {
+    const handleSendMessage = () => {
         // Implement logic to send the message
         // You can use the state variables (message, recipient) here
     };
@@ -31,7 +31,7 @@ const Messages = () => {
                             <option value="All">All</option>
                             <option value="Group1">Group1</option>
                         </select>
-                        <input type="button" value="Send" onClick={handleSend} />
+                        <input type="button" value="Send" onClick={handleSendMessage} />
                     </td>
                 </tr>
             </table>

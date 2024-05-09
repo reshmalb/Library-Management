@@ -28,7 +28,7 @@ const Fees = () => {
         setPaymentDate(e.target.value);
     };
 
-    const handleAdd =async () => {
+    const handleAddFee =async () => {
         const newFeeData={
             studentId: studentId,
             amount:amount,
@@ -72,7 +72,7 @@ const Fees = () => {
 
                 </tr>
                 <tr>
-                    <td><input type="button" value="Add" onClick={handleAdd} /></td>
+                    <td><input type="button" value="Add fee" onClick={handleAddFee} /></td>
                 </tr>
             </table>
             <div  className={user.userType==="Student"?"noneClass":"displayClass"}>

@@ -1,57 +1,80 @@
-import {useState,useContext } from "react";
+import {useState,useContext, useEffect } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
+import axios from 'axios';
+
 
 const Notice = () => {
     const [title, setTitle] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
-    const [points, setPoints] = useState("");
-    const [assignedTo, setAssignedTo] = useState("All");
+    const [date, setDate] = useState("");
+    const [details, setDetails] = useState("");
+    const [school, setSchool] = useState("");
+    const [noticedata,setnoticeData]=useState();
+    const [noticeDetails,setNoticeDetails]=useState([]);
+    const API_URL = process.env.REACT_APP_API_URL;
+    
+
     const {user} =useContext(AuthContext);
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
     };
 
-    const handleStartDateChange = (e) => {
-        setStartDate(e.target.value);
+    const handleDetailsChange = (e) => {
+        setDetails(e.target.value);
     };
 
-    const handleEndDateChange = (e) => {
-        setEndDate(e.target.value);
+    const handleDateChange = (e) => {
+        setDate(e.target.value);
     };
 
-    const handlePointsChange = (e) => {
-        setPoints(e.target.value);
+    const handleSchoolChange = (e) => {
+        setSchool(e.target.value);
     };
 
-    const handleAssignedToChange = (e) => {
-        setAssignedTo(e.target.value);
+    
+    const handleAddNotice = async() => {
+        const noticeData ={
+            title, details, date, school
+        }
+        try {
+            const response = await axios.post(API_URL+"api/notice/createnotice",noticeData);
+            if(response.status === 201){
+                setnoticeData(noticeData);
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
     };
+    useEffect(()=>{
+        const fetchNoticeData= async()=>{
+            try{
 
-    const handleAddAssignment = () => {
-        // Implement logic to add the assignment
-        // You can use the state variables (title, startDate, endDate, points, assignedTo) here
-    };
+                 const response = await axios.get(API_URL+"api/notice/getnotice")
+                  if(response?.data){
+                        setNoticeDetails(response.data);
+                  }
+
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+        fetchNoticeData();
+    },[noticedata]);
 
     return (
         <>
             <table  className={user.userType==="Student"?"noneClass":"displayClass"}>
                 <tr>
-                    <td><input type="text" placeholder="Title" value={title} onChange={handleTitleChange} /></td>
-                    <td>StartDate<input type="date" value={startDate} onChange={handleStartDateChange} /></td>
-                    <td>EndDate<input type="date" value={endDate} onChange={handleEndDateChange} /></td>
-                    <td>Points<input type="text" placeholder="Points" value={points} onChange={handlePointsChange} /></td>
-                    <td>AssignedTo
-                        <select value={assignedTo} onChange={handleAssignedToChange}>
-                            <option value="All">All</option>
-                            <option value="Batch1">Batch1</option>
-                            <option value="Batch2">Batch2</option>
-                        </select>
-                    </td>
+                    <td>Title<input type="text" placeholder="Title" value={title} onChange={handleTitleChange} /></td>
+                    <td>Date<input type="date" value={date}  onChange={handleDateChange} /></td>
+                    <td>Details<input type="text" value={details} onChange={handleDetailsChange} /></td>
+                    <td>School<input type="text" placeholder="School" value={school} onChange={handleSchoolChange} /></td>
+                  
                 </tr>
                 <tr>
-                    <td><input type="button" value="Add Assignment" onClick={handleAddAssignment} /></td>
+                    <td><input type="button" value="Add Notice" onClick={handleAddNotice} /></td>
                 </tr>
             </table>
 
@@ -64,6 +87,16 @@ const Notice = () => {
                     <th>SubmissionDate</th>
                 </tr>
                 {/* Render assignment data here */}
+                {noticeDetails?.map((data,index)=>(
+                    <tr key={data._id}>
+                        <td>{index+1}</td>
+                        <td>{data.title}</td>
+                        <td>{data.date}</td>
+                        <td>{data.details}</td>
+                        <td>{data.school}</td>
+                       
+                    </tr>
+                ))}
             </table>
         </>
     );

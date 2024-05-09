@@ -26,7 +26,7 @@ const Examtimetable = () => {
         setAssignedTo(e.target.value);
     };
 
-    const handleAddAssignment = () => {
+    const handleAddExamTimeTable = () => {
         // Implement logic to add the assignment
         // You can use the state variables (examTitle, startDate, endDate, totalMarks, assignedTo) here
     };
@@ -49,7 +49,7 @@ const Examtimetable = () => {
              </td>
          </tr>
          <tr>
-             <td><input type="button" value="AddAssignment" onClick={handleAddAssignment} /></td>
+             <td><input type="button" value="AddAssignment" onClick={handleAddExamTimeTable} /></td>
          </tr>
      </table>
 

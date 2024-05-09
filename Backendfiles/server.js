@@ -19,6 +19,7 @@
  import leavereport from "./routes/Leavereport.js";
  import markcard from "./routes/Markcard.js";
   import notice from "./routes/Notice.js";
+  import seminar from "./routes/Seminar.js"
 
 /* App Config */
 dotenv.config();
@@ -64,6 +65,7 @@ app.use("/api/homework",homework);
  app.use("/api/leavereport",leavereport);
   app.use("/api/markcard",markcard);
  app.use("/api/notice",notice);
+ app.use("/api/seminar",seminar);
 
 
 app.get("/", (req, res) => {
