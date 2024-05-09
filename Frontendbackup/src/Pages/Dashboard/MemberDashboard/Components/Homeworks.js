@@ -52,7 +52,7 @@ const Homeworks = () => {
    <table  className={user.userType==="Student"?"noneClass":"displayClass"}>
    <tr>
        <td>Classname<input type="text"  value={classname} onChange={(e)=>setClassname(e.target.value)} /></td>
-       <td>Subject<input type="date" value={subject} onChange={(e)=>setSubject(e.target.value)} /></td>
+       <td>Subject<input type="text" value={subject} onChange={(e)=>setSubject(e.target.value)} /></td>
        <td>Due Date<input type="date" value={dueDate} onChange={(e)=>setDueDate(e.target.value)}/></td>
        <td>Description<input type="text" value={description} onChange={(e)=>setDescription(e.target.value)} /></td>
        <td>Additional Details<input type="text"  value={additionalDetails} onChange={(e)=>setAdditionalDetails(e.target.value)}/></td>

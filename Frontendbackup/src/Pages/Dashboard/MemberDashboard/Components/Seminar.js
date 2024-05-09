@@ -49,7 +49,8 @@ const Seminar = () => {
     
     try{
          const response= axios.post(API_URL+"api/seminar/createseminar",seminarData)
-          if(response.status == 201){
+         
+          if(response.status === 201){
             alert("seminar added succefully");
             setSeminarData(seminarData);
 
@@ -59,10 +60,10 @@ const Seminar = () => {
     }
 }
  useEffect(()=>{
-    const fetchSeminarData =()=>{
+    const fetchSeminarData =  async()=>{
          
     try{
-        const response= axios.get(API_URL+"api/seminar/getseminar")
+        const response= await axios.get(API_URL+"api/seminar/getseminar")
          if(response.data){
             setSeminarDetails(response.data);
          }

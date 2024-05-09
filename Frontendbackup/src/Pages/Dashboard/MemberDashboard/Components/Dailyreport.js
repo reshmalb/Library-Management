@@ -25,7 +25,7 @@ const Dailyreport=()=>{
         }
     };
     fetchDailyReport();
-   })
+   },[])
 
 
    

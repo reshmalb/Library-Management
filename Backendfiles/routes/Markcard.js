@@ -6,8 +6,8 @@ import MarkCard from "../models/Markcard.js";
 
 router.post("/addmarkcard", async (req, res) => {
     try {
-      const { studentId, subject, markObtained, maxMarks, examType, additionalDetails } = req.body;
-      const newMarkCard = new MarkCard({ studentId, subject, markObtained, maxMarks, examType, additionalDetails });
+      const { studentId, subject, marksObtained, maxMarks, examType, additionalDetails } = req.body;
+      const newMarkCard = new MarkCard({ studentId, subject, marksObtained, maxMarks, examType, additionalDetails });
       const savedMarkCard = await newMarkCard.save();
       res.status(201).json(savedMarkCard);
     } catch (error) {

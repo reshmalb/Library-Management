@@ -49,7 +49,7 @@ const Examtimetable = () => {
              </td>
          </tr>
          <tr>
-             <td><input type="button" value="AddAssignment" onClick={handleAddExamTimeTable} /></td>
+             <td><input type="button" value="Add Exam TimeTable" onClick={handleAddExamTimeTable} /></td>
          </tr>
      </table>
 

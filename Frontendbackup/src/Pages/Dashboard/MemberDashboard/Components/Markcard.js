@@ -7,10 +7,11 @@ const Markcard = () => {
     const {user} = useContext(AuthContext);
     const [studentId,setStudentId]=useState("");
     const [subject,setSubject]=useState("");
-    const [markObtained,setmarkObtained]=useState();
+    const [marksObtained,setmarkObtained]=useState();
     const [maxMarks,setMaxMarks] =useState();
     const [examType,setExamType]=useState("");
     const [additionalDetails,setAdditionalDetails]=useState("");
+
     const [markData,setMarkData]=useState();
     const [markDetails,setMarkDetails]= useState([]);
 
@@ -22,7 +23,7 @@ const Markcard = () => {
         // Implement logic to add the assignment
         // You can use the state variables (title, startDate, endDate, points, assignedTo) here
         const markData={
-            studentId, subject, markObtained, maxMarks, examType, additionalDetails
+            studentId, subject, marksObtained, maxMarks, examType, additionalDetails
         }    
         try {
             const response = await axios.post(API_URL+"api/markcard/addmarkcard",markData);
@@ -38,7 +39,7 @@ const Markcard = () => {
         const fetchNoticeData= async()=>{
             try{
 
-                 const response = await axios.get(API_URL+"api/notice/getmarkcard")
+                 const response = await axios.get(API_URL+"api/markcard/getmarkcard")
                   if(response?.data){
                         setMarkDetails(response.data);
                   }
@@ -58,8 +59,8 @@ const Markcard = () => {
              <tr>
                  <td>StudentId<input type="text" placeholder="StudentId" value={studentId} onChange={(e)=>setStudentId(e.target.value)} /></td>
                  <td>Subject<input type="text" value={subject} onChange={(e)=>setSubject(e.target.value)} /></td>
-                 <td>Mark Obtained<input type="text" value={markObtained} onChange={(e)=>setmarkObtained(e.target.value)} /></td>
-                 <td>Maximum Marks<input type="text"  value={maxMarks} onChange={(e)=>setMaxMarks(e.target.value)} /></td>
+                 <td>Mark Obtained<input type="number" value={marksObtained} onChange={(e)=>setmarkObtained(e.target.value)} /></td>
+                 <td>Maximum Marks<input type="number"  value={maxMarks} onChange={(e)=>setMaxMarks(e.target.value)} /></td>
                  <td>Exam Type<input type="text"  value={examType} onChange={(e)=>setExamType(e.target.value)} /></td>
                  <td>Additional Details<input type="text"  value={additionalDetails} onChange={(e)=>setAdditionalDetails(e.target.value)} /></td>
 
@@ -72,6 +73,7 @@ const Markcard = () => {
  
             <table className="activebooks-table">
             <tr>
+            <th>SI No:</th>
                 <th>Student ID</th>
                 <th>Subject</th>
                 <th>Mark Obtained</th>
@@ -85,7 +87,7 @@ const Markcard = () => {
                         <td>{index+1}</td>
                         <td>{data.studentId}</td>
                         <td>{data.subject}</td>
-                        <td>{data.markObtained}</td>
+                        <td>{data.marksObtained}</td>
                         <td>{data.maxMarks}</td>
                         <td>{data.examType}</td>
 
