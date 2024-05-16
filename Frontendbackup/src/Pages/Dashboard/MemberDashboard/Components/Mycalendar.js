@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import events from "./Events";
+// import events from "./Events";
+import axios from 'axios';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
 export default function Mycalendar() {
-  const [eventsData, setEventsData] = useState(events);
+  const [eventsData, setEventsData] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   const handleSelect = ({ start, end }) => {
     console.log(start);
@@ -24,6 +27,22 @@ export default function Mycalendar() {
         }
       ]);
   };
+
+  useEffect(()=>{
+    const fetchEvents= async()=>{
+      try{
+       const response = await axios.get(API_URL+"api/calender/getcalenderdata");
+       console.log("calenderdata",response.data);
+       setEventsData(response.data)
+
+      }
+      catch(error){
+        console.log(error);
+      }
+
+    }
+    fetchEvents();
+  },[])
   return (
     <div className="App">
       <Calendar
